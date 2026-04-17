@@ -1,5 +1,5 @@
 import { prisma } from "./db";
-import { getDateTime } from "./utils";
+import { getDateTime, formatNumber } from "./utils";
 import type { SimpleQuote, IndicatorResponse } from "./types";
 
 const DEFAULT_TTL_MS = Number(process.env.CACHE_TTL_MS ?? 300_000);
@@ -31,8 +31,8 @@ export function toSimpleResponse(row: {
 }): SimpleQuote {
   return {
     date: getDateTime(),
-    buy: row.buy ?? "N/A",
-    sell: row.sell ?? "N/A",
+    buy: formatNumber(row.buy),
+    sell: formatNumber(row.sell),
     currency: row.currency,
   };
 }
@@ -43,7 +43,7 @@ export function toIndicatorResponse(row: {
 }): IndicatorResponse {
   return {
     date: getDateTime(),
-    value: row.value ?? "N/A",
+    value: formatNumber(row.value),
     currency: row.currency,
   };
 }

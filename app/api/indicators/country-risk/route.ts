@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchCountryRisk } from "@/lib/argentinadatosService";
+import { fetchCountryRisk } from "@/lib/providers";
 import { getDateTime } from "@/lib/utils";
 
 export async function GET() {
@@ -8,11 +8,12 @@ export async function GET() {
     if (!data.length) {
       return NextResponse.json({ error: "No data available" }, { status: 503 });
     }
-    const latest = data[data.length - 1];
+    const latest = data.at(-1)!
     return NextResponse.json({
       date: getDateTime(),
+      type: "country-risk",
       value: latest.valor.toString(),
-      currency: "USD",
+      unit: "bps",
       lastUpdate: latest.fecha,
     });
   } catch {

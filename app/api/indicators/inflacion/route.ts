@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchInflacion } from "@/lib/argentinadatosService";
+import { fetchInflacion } from "@/lib/providers";
 import { buildMonthlyEvolution, getDateTime } from "@/lib/utils";
 
 export async function GET() {

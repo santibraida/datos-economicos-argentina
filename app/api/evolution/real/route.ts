@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchCotizacionHistory } from "@/lib/argentinadatosService";
+import { fetchCotizacionHistory } from "@/lib/providers";
 import { buildMonthlyEvolution, getDateTime } from "@/lib/utils";
 
 export async function GET() {
@@ -9,7 +9,7 @@ export async function GET() {
       .filter((e) => e.moneda === "BRL")
       .map((e) => ({ venta: e.venta, fecha: e.fecha }));
     const months = buildMonthlyEvolution(realEntries);
-    return NextResponse.json({ date: getDateTime(), currency: "BRL", months });
+    return NextResponse.json({ date: getDateTime(), type: "real", months });
   } catch {
     return NextResponse.json(
       { error: "Failed to fetch evolution" },

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchDolarSi } from "@/lib/dolarSiService";
+import { fetchDolarSi } from "@/lib/providers";
 import {
   getCached,
   save,
@@ -15,9 +15,9 @@ export async function handleQuote(type: string, config: QuoteConfig) {
     if (cached) return NextResponse.json(toSimpleResponse(cached));
 
     const data = await fetchDolarSi();
-    const buy = formatNumber(config.getBuy(data));
-    const sell = formatNumber(config.getSell(data));
-    const row = await save({ type, buy, sell, currency: config.currency });
+    const buy = config.getBuy(data) ?? null;
+    const sell = config.getSell(data) ?? null;
+    const row = await save({ type, buy: buy ?? undefined, sell: sell ?? undefined, currency: config.currency });
     return NextResponse.json(toSimpleResponse(row));
   } catch {
     return NextResponse.json(
@@ -33,7 +33,7 @@ export async function handleIndicator(type: string, config: IndicatorConfig) {
     if (cached) return NextResponse.json(toIndicatorResponse(cached));
 
     const data = await fetchDolarSi();
-    const value = formatNumber(config.getValue(data), config.decimals ?? 2);
+    const value = config.getValue(data) ?? undefined;
     const row = await save({ type, value, currency: config.currency });
     return NextResponse.json(toIndicatorResponse(row));
   } catch {
@@ -56,13 +56,14 @@ export async function handleAllQuotes(
     > = {};
     for (const [key, config] of Object.entries(map)) {
       try {
+        const rawBuy = config.getBuy(data) ?? undefined;
+        const rawSell = config.getSell(data) ?? undefined;
         results[key] = {
-          buy: formatNumber(config.getBuy(data)),
-          sell: formatNumber(config.getSell(data)),
+          buy: formatNumber(rawBuy),
+          sell: formatNumber(rawSell),
           currency: config.currency,
         };
-        // fire-and-forget cache save
-        save({ type: `${prefix}/${key}`, ...results[key] }).catch(() => {});
+        save({ type: `${prefix}/${key}`, buy: rawBuy, sell: rawSell, currency: config.currency }).catch(() => {});
       } catch {
         results[key] = { buy: "N/A", sell: "N/A", currency: config.currency };
       }

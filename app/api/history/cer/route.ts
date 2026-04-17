@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchBCRAVariable, BCRA_VARIABLE_IDS } from "@/lib/bcraService";
+import { fetchBCRAVariable, BCRA_VARIABLE_IDS } from "@/lib/providers";
 import {
   buildDailyHistory,
   buildMonthlyHistory,

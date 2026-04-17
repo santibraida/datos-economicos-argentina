@@ -1,15 +1,12 @@
-import type { AppData } from "@/lib/dolarSiService";
-import { fetchDolarSi } from "@/lib/dolarSiService";
+import type { AppData, BCRAVariable } from "@/lib/providers";
 import {
+  fetchDolarSi,
   fetchCountryRisk,
   fetchInflacion,
   fetchPlazoFijo,
-} from "@/lib/argentinadatosService";
-import {
   fetchBCRALatestAll,
   BCRA_VARIABLE_IDS,
-  type BCRAVariable,
-} from "@/lib/bcraService";
+} from "@/lib/providers";
 import {
   DOLLAR_MAP,
   EURO_MAP,

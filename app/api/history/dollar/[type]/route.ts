@@ -1,30 +1,21 @@
 import { NextResponse } from "next/server";
-import { fetchDollarHistory } from "@/lib/argentinadatosService";
+import { fetchDollarHistory } from "@/lib/providers";
+import { VALID_DOLLAR_TYPES } from "@/lib/quotes";
 import {
   buildDailyHistory,
   buildMonthlyHistory,
   getDateTime,
 } from "@/lib/utils";
 
-const VALID_TYPES = new Set([
-  "oficial",
-  "blue",
-  "bolsa",
-  "contadoconliqui",
-  "mayorista",
-  "cripto",
-  "tarjeta",
-]);
-
 export async function GET(
   req: Request,
   { params }: { params: Promise<{ type: string }> },
 ) {
   const { type } = await params;
-  if (!VALID_TYPES.has(type)) {
+  if (!VALID_DOLLAR_TYPES.has(type)) {
     return NextResponse.json(
       {
-        error: `Unknown type: "${type}". Options: ${[...VALID_TYPES].join(", ")}`,
+        error: `Unknown type: "${type}". Options: ${[...VALID_DOLLAR_TYPES].join(", ")}`,
       },
       { status: 404 },
     );

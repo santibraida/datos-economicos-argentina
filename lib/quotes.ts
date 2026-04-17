@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Central registry: maps route keys → data extraction from dolarapi.com response.
 
-import type { AppData } from "@/lib/dolarSiService";
+import type { AppData } from "@/lib/providers";
 
 export interface QuoteConfig {
-  currency: "USD" | "EUR" | "BRL" | "ARS";
+  currency: "USD" | "EUR" | "BRL" | "ARS" | "CLP" | "UYU";
   getBuy: (d: AppData) => string;
   getSell: (d: AppData) => string;
 }
@@ -57,6 +57,8 @@ export const DOLLAR_MAP: Record<string, QuoteConfig> = {
   },
 };
 
+export const VALID_DOLLAR_TYPES = new Set(Object.keys(DOLLAR_MAP));
+
 // ─────────────────────────────────────────────
 // Euro  (source: /v1/cotizaciones — official rate only)
 // ─────────────────────────────────────────────
@@ -84,7 +86,7 @@ export const REAL_MAP: Record<string, QuoteConfig> = {
 // ─────────────────────────────────────────────
 export const PESO_CHILENO_MAP: Record<string, QuoteConfig> = {
   oficial: {
-    currency: "CLP" as QuoteConfig["currency"],
+    currency: "CLP",
     getBuy: (d) => String(d.currencies["CLP"]?.compra ?? ""),
     getSell: (d) => String(d.currencies["CLP"]?.venta ?? ""),
   },
@@ -95,7 +97,7 @@ export const PESO_CHILENO_MAP: Record<string, QuoteConfig> = {
 // ─────────────────────────────────────────────
 export const PESO_URUGUAYO_MAP: Record<string, QuoteConfig> = {
   oficial: {
-    currency: "UYU" as QuoteConfig["currency"],
+    currency: "UYU",
     getBuy: (d) => String(d.currencies["UYU"]?.compra ?? ""),
     getSell: (d) => String(d.currencies["UYU"]?.venta ?? ""),
   },

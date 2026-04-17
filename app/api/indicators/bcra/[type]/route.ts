@@ -2,10 +2,31 @@ import { NextResponse } from "next/server";
 import {
   fetchBCRAVariable,
   BCRA_VARIABLE_IDS,
+  fetchInflacion,
+  fetchUVA,
   type BCRAIndicatorType,
-} from "@/lib/bcraService";
-import { fetchInflacion, fetchUVA } from "@/lib/argentinadatosService";
+} from "@/lib/providers";
 import { getDateTime } from "@/lib/utils";
+
+const BCRA_UNITS: Record<BCRAIndicatorType, string> = {
+  reservas: "MM USD",
+  tcMinorista: "ARS/USD",
+  tcMayorista: "ARS/USD",
+  badlar: "%",
+  tm20: "%",
+  tasaDepositos30d: "%",
+  tasaPrestamosPersonales: "%",
+  baseMon: "MM ARS",
+  circulante: "MM ARS",
+  depositosPlazo: "MM ARS",
+  prestamosPrivado: "MM ARS",
+  ipcInteranual: "%",
+  expectativaInflacion: "%",
+  cer: "índice",
+  uvaAlternativo: "ARS",
+  icl: "índice",
+  tamar: "%",
+};
 
 const VALID_TYPES = new Set<string>([
   ...Object.keys(BCRA_VARIABLE_IDS),
@@ -65,6 +86,7 @@ export async function GET(
       date: getDateTime(),
       type,
       value: latest.valor.toString(),
+      unit: BCRA_UNITS[type as BCRAIndicatorType],
       lastUpdate: latest.fecha,
     });
   } catch {

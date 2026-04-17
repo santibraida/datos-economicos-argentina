@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchUVA } from "@/lib/argentinadatosService";
+import { fetchUVA } from "@/lib/providers";
 import {
   buildDailyHistory,
   buildMonthlyHistory,

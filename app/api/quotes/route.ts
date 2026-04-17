@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchDolarSi } from "@/lib/dolarSiService";
+import { fetchDolarSi } from "@/lib/providers";
 
 export async function GET() {
   try {

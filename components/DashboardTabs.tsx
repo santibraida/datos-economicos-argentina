@@ -6,7 +6,7 @@ import { QuoteCard } from "@/components/QuoteCard";
 import { HistoricoTab } from "@/components/HistoricoTab";
 import { DOLLAR_MAP } from "@/lib/quotes";
 import type { SimpleQuote } from "@/lib/types";
-import type { PlazoFijoEntry } from "@/lib/argentinadatosService";
+import type { PlazoFijoEntry } from "@/lib/providers";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
