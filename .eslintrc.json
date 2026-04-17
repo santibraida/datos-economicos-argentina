@@ -1,16 +1,6 @@
 {
-    "env": {
-        "browser": true,
-        "node": true,
-        "es6": true
-    },
-    "parser": "babel-eslint",
-    "extends": ["eslint:recommended"],
-    "rules": {
-        "no-undef": 2,
-        "no-var": 2,
-        "no-const-assign": 2,
-        "no-unused-vars": 2,
-        "prefer-const": 2
-    }
+  "extends": ["next/core-web-vitals", "next/typescript"],
+  "rules": {
+    "react/prefer-read-only-props": "off"
+  }
 }

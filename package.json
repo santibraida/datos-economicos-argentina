@@ -1,25 +1,33 @@
 {
-  "name": "apidolar",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "datos-economicos-argentina",
+  "version": "2.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "lint": "eslint \"./**/*.js\""
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:studio": "prisma studio"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "axios": "^0.21.2",
-    "babel-eslint": "^10.1.0",
-    "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
-    "eslint": "^7.9.0",
-    "express": "^4.17.1",
-    "helmet": "^4.2.0",
-    "web": "0.0.2",
-    "xml-js": "^1.6.11"
+    "@prisma/client": "^5.22.0",
+    "next": "^15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "recharts": "^3.8.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@tailwindcss/postcss": "^4.1.0",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.24.0",
+    "eslint-config-next": "^15.3.0",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.8.3"
   }
 }
